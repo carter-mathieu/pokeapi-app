@@ -1,7 +1,10 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import pokeReducer from "../features/pokeSlice";
 
 export const store = configureStore({
-	reducer: {},
+	reducer: {
+		poke: pokeReducer,
+	},
 });
 
 export type AppDispatch = typeof store.dispatch;
