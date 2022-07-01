@@ -15,6 +15,14 @@ const PokeProfile = () => {
 		dispatch(getPokemon(params.pokemonName as string));
 	}, [dispatch, params.pokemonName]);
 
+	// destructure pokemon object retrieved from API
+	const {
+		name: string,
+		height: number,
+		weight: number,
+		types: Array<{ slot: number; type: {name: string}}>
+	} = pokemon
+
 	if (isLoading) {
 		<p>Beep Boop</p>;
 	}
