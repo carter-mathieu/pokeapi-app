@@ -3,7 +3,7 @@ import pokeReducer from "../features/pokeSlice";
 
 export const store = configureStore({
 	reducer: {
-		poke: pokeReducer,
+		pokemon: pokeReducer,
 	},
 });
 

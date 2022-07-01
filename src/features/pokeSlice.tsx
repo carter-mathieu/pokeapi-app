@@ -11,7 +11,7 @@ export interface PokeState {
 	errorMessage: string;
 }
 
-const initialState: PokeState = {
+const initialState = {
 	pokemons: [],
 	pokemon: {},
 	isError: false,
@@ -21,7 +21,7 @@ const initialState: PokeState = {
 };
 
 // Create funtion to submit get request to PokeAPI for all pokemon
-export const getPokemons = createAsyncThunk("pokemons/getAll", async (_: Array<object>) => {
+export const getPokemons = createAsyncThunk("pokemons/getAll", async _ => {
 	try {
 		// Use a service for hitting the needed API endpoint
 		return await pokeService.getPokemons();
@@ -42,10 +42,26 @@ export const getPokemon = createAsyncThunk("pokemons/get", async (pokemonName: s
 
 // Create and export the slice
 export const pokeSlice = createSlice({
-	name: "poke",
+	name: "pokemon",
 	initialState,
 	reducers: {
 		// TODO: make a reducers here
+	},
+	extraReducers: builder => {
+		builder
+			.addCase(getPokemons.pending, state => {
+				state.isLoading = true;
+			})
+			.addCase(getPokemons.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isSuccess = true;
+				state.pokemons = action.payload;
+			})
+			.addCase(getPokemons.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isError = true;
+				state.errorMessage = action.payload as string;
+			});
 	},
 });
 
