@@ -29,8 +29,9 @@ const getPokemon = async (pokemonName: string) => {
 		weight: response.data.weight,
 		forms: response.data.forms,
 		sprite: response.data.sprites.front_default,
-		species: response.data.species.name,
+		abilities: response.data.abilities,
 		types: response.data.types,
+		base_experience: response.data.base_experience,
 	};
 
 	return pokeData;

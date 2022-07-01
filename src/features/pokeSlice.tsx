@@ -7,8 +7,9 @@ type Pokemon = {
 	height: number;
 	weight: number;
 	sprite: string;
-	species: string;
-	types: Array<{ slot: number; type: string }>;
+	abilities: Array<{ ability: { name: string; url: string }; is_hidden: boolean; slot: number }>;
+	types: Array<{ slot: number; type: { name: string; url: string } }>;
+	base_experience: number;
 };
 
 export interface PokeState {
@@ -56,7 +57,7 @@ export const pokeSlice = createSlice({
 	name: "pokemon",
 	initialState,
 	reducers: {
-		// TODO: make a reducers here
+		reset: (state: any) => initialState,
 	},
 	extraReducers: builder => {
 		builder
@@ -88,5 +89,7 @@ export const pokeSlice = createSlice({
 			});
 	},
 });
+
+export const { reset } = pokeSlice.actions;
 
 export default pokeSlice.reducer;

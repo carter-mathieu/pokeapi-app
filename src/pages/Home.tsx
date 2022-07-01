@@ -1,11 +1,12 @@
 import React from "react";
+import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 
 const Home = () => {
 	return (
 		<div>
-			<h1>Home</h1>
 			{/* Search bar componet here */}
+			<SearchBar />
 			{/* Search results component here */}
 			<SearchResults />
 		</div>
