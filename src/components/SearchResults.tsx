@@ -23,8 +23,8 @@ const SearchResults = () => {
 		<div>
 			<h1>SearchResults</h1>
 			<div>
-				{pokemons.map(pokemon => (
-					<PokeItem />
+				{pokemons.map((pokemon: any) => (
+					<PokeItem key={pokemon.name} pokemon={pokemon} />
 				))}
 			</div>
 		</div>

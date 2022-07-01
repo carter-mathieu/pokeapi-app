@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import pokeService from "./pokeService";
 
 export interface PokeState {
-	pokemons: Array<object>;
+	pokemons: Array<{ name: string; url: string }>;
 	pokemon: object;
 	isError: boolean;
 	isSuccess: boolean;
