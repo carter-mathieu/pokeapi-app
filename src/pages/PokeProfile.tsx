@@ -6,6 +6,8 @@ import { useParams, Link } from "react-router-dom";
 import type { AppDispatch, RootState } from "../app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemon } from "../features/pokeSlice";
+import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 interface PokeProfileProps {
 	name: string;
@@ -18,22 +20,24 @@ interface PokeProfileProps {
 }
 
 const PokeProfile = () => {
-	const { pokemon, isLoading, isError, isSuccess, errorMessage } = useSelector((state: RootState) => state.pokemon);
+	const { pokemon, isLoading, isError, errorMessage } = useSelector((state: RootState) => state.pokemon);
 
 	const dispatch = useDispatch<AppDispatch>();
 
 	const params = useParams();
 
 	useEffect(() => {
-		console.log(params.pokemonName);
+		if (isError) {
+			toast.error(errorMessage);
+		}
 		dispatch(getPokemon(params.pokemonName as string));
-	}, [dispatch, params.pokemonName]);
+	}, [dispatch, params.pokemonName, isError, errorMessage]);
 
 	// destructure pokemon object retrieved from API
 	const { name, height, weight, sprite, abilities, types, base_experience } = pokemon as PokeProfileProps;
 
 	if (isLoading) {
-		return <p>Beep Boop</p>;
+		return <Spinner />;
 	}
 
 	return (

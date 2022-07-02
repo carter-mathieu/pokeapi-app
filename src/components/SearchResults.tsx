@@ -3,10 +3,12 @@ import type { AppDispatch, RootState } from "../app/store";
 import { useSelector, useDispatch } from "react-redux";
 import PokeItem from "./PokeItem";
 import { getPokemons, reset } from "../features/pokeSlice";
+import { toast } from "react-toastify";
+import Spinner from "./Spinner";
 
 const SearchResults = () => {
 	// import the pokemon state
-	const { pokemons, isError, isSuccess, isLoading, errorMessage } = useSelector((state: RootState) => state.pokemon);
+	const { pokemons, isSuccess, isLoading } = useSelector((state: RootState) => state.pokemon);
 
 	// handle search field text state
 	const [searchText, setSearchText] = useState("");
@@ -18,16 +20,13 @@ const SearchResults = () => {
 	const dispatch = useDispatch<AppDispatch>();
 
 	useEffect(() => {
+		dispatch(getPokemons());
 		return () => {
 			if (isSuccess) {
 				dispatch(reset());
 			}
 		};
 	}, [dispatch, isSuccess]);
-
-	useEffect(() => {
-		dispatch(getPokemons());
-	}, [dispatch]);
 
 	const handleChange = (e: any) => {
 		setSearchText(e.target.value);
@@ -36,7 +35,7 @@ const SearchResults = () => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		if (searchText === "") {
-			console.log("enter something");
+			toast.error("Please Enter a Pokemon Name");
 		} else {
 			setFilter(searchText);
 			setSearchText("");
@@ -45,8 +44,12 @@ const SearchResults = () => {
 
 	const pokemonsToShow = filter && filter !== "" ? pokemons.filter(pokemon => pokemon.name === filter) : pokemons;
 
+	if (pokemonsToShow.length === 0 && filter !== "") {
+		toast.error(`No Pokemon with Name ${filter} Found`, { toastId: 1 });
+	}
+
 	if (isLoading) {
-		return <p>Beep Boop</p>;
+		return <Spinner />;
 	}
 
 	return (
