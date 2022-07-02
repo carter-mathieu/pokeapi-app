@@ -4,7 +4,7 @@ const POKEAPI_URL: string = "https://pokeapi.co/api/v2/";
 
 // Call the API endpoint to get back all pokemon
 const getPokemons = async () => {
-	const response = await axios.get(`${POKEAPI_URL}pokemon`);
+	const response = await axios.get(`${POKEAPI_URL}pokemon/?limit=151`);
 
 	if (response.status !== 200) {
 		const message = "The Pokedex Could Not Connect";
