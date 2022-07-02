@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { MdCatchingPokemon } from "react-icons/md";
+import { GiMeshNetwork } from "react-icons/gi";
 import { useParams, Link } from "react-router-dom";
 import type { AppDispatch, RootState } from "../app/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,38 +46,40 @@ const PokeProfile = () => {
 					</Link>
 				</div>
 				<div className="container">
-					<div className="stats shadow">
+					<div className="stats shadow bg-base-200">
 						<div className="stat">
 							<div className="stat-figure text-primary">
-								<MdCatchingPokemon size="36" />
+								<div className="avatar">
+									<div className="w-20 rounded-full">
+										<img src={sprite} />
+									</div>
+								</div>
 							</div>
 							<div className="stat-title">About</div>
-							<div className="stat-value text-primary">{name}</div>
+							<div className="stat-value text-primary">{name ? name.charAt(0).toUpperCase() + name.slice(1) : ""}</div>
 							{/* .charAt(0).toUpperCase() + name.slice(1) */}
 							<div className="stat-desc">
 								Height: {height}dm, Weight: {weight}hg
 							</div>
 						</div>
 						<div className="stat">
-							<div className="stat-figure text-secondary">{/* icon or img */}</div>
+							<div className="stat-figure text-desc">
+								<GiMeshNetwork size="36" />
+							</div>
 							<div className="stat-title">Ability</div>
-							<div className="stat-value text-secondary">{abilities ? abilities[0].ability.name : ""}</div>
-							<div className="stat-desc">Hidden: {abilities ? abilities[1].ability.name : ""}</div>
+							<div className="stat-value text-secondary">{abilities ? abilities[0].ability.name.charAt(0).toUpperCase() + abilities[0].ability.name.slice(1) : ""}</div>
+							<div className="stat-desc">Hidden: {abilities ? abilities[1].ability.name.charAt(0).toUpperCase() + abilities[1].ability.name.slice(1) : ""}</div>
 						</div>
 						<div className="stat">
-							<div className="stat-figure text-secondary">
-								<div className="avatar">
-									<div className="w-16 rounded-full">
-										<img src={sprite} />
-									</div>
-								</div>
+							<div className="stat-figure text-desc">
+								<MdCatchingPokemon size="36" />
 							</div>
 							<div className="stat-title">Types</div>
 							<div className="stat-title">
 								{types ? (
 									types.map(({ slot, type }) => (
 										<div key={slot} className="badge badge-info mx-2 my-2">
-											{type.name}
+											{type.name.charAt(0).toUpperCase() + type.name.slice(1)}
 										</div>
 									))
 								) : (
