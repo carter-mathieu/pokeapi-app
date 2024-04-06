@@ -1,3 +1,7 @@
+# Overview
+
+The goal of this project was to create a simple Pokedex app using PokeAPI to learn Typescript. The application allows users to look up any of the original 151 Pokémon. They can then click on a search result to be brought to a page to see the in-game sprite as well as other common information about the Pokémon. This information is returned from the PokeAPI based on the request parameters of what Pokémon the user selected, and includes data such as tpye, moves, Pokédex number, etc.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
